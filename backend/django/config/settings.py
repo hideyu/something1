@@ -27,7 +27,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
-# SECRET_KEY = '=d!6@pgfg*nq8$vnr@$v%3!qii+yi73b10ju)8v@1g+x@-)_la'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
@@ -43,6 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 3rd party application
+    'rest_framework',
+
+    # My application
+    'apiv1.apps.Apiv1Config',
 ]
 
 MIDDLEWARE = [
