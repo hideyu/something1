@@ -1,6 +1,21 @@
 version: "3.7"
 
 services:
+  react:
+    # コンテナ名
+    container_name: react
+    # ビルドするdockerファイルが格納されたディレクトリ
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.local
+    # 正常起動後に実行するコマンド
+    command: yarn start
+    # ボリュームをマウントしておいてホットリロードっぽくしてる
+    volumes:
+      - ./frontend:/usr/src/app
+    ports:
+      # ホスト側のポート：コンテナ側のポート
+      - 3000:3000
   django:
     # コンテナ名
     container_name: django
