@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     # 3rd party application
     'rest_framework',
+    'corsheaders',
 
     # My application
     'apiv1.apps.Apiv1Config',
@@ -53,12 +54,21 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",  # 追加
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# django-cors-headersの設定1
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
+# django-cors-headersの設定2
+# CORS_ALLOW_CREDENTIALS = True
+
 
 ROOT_URLCONF = 'config.urls'
 
