@@ -67,7 +67,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
 ]
 # django-cors-headersの設定2
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
 
 
 ROOT_URLCONF = 'config.urls'

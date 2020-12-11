@@ -9,8 +9,8 @@ import './App.css';
 
 const backendUrl: string = 'http://localhost:8000';
 axios.defaults.baseURL = backendUrl;
-axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = backendUrl;
+// axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+// axios.defaults.headers.post['Access-Control-Allow-Origin'] = backendUrl;
 
 const App: FC = () => {
     const count: number = useSelector<SomethingState, number>((state => state.count))
@@ -37,6 +37,32 @@ const App: FC = () => {
         fetchDate()
     }, [])
 
+
+    const postData = {
+        title: "test",
+        contents: "testtesttest",
+    }
+
+    //うまくいった！
+    //TODO: async/await方式に書き換える
+    const postButton = () => {
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            }
+        }
+
+        const response = axios.post("/api/v1/something/", postData, config)
+            .then(response => console.log(response.data))
+            .catch(error => console.log(error));
+
+        console.log(response)
+
+        // console.log(axiosPost)
+    }
+
+
     return (
         <div className="App">
             <p>Do something.</p>
@@ -49,6 +75,8 @@ const App: FC = () => {
             <div>
                 {loading ? <h1>Loading...</h1> : <h1>{user}</h1>}
             </div>
+
+            <button onClick={() => postButton()}>post</button>
 
         </div>
     )
