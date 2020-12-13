@@ -1,4 +1,4 @@
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState, useEffect, SyntheticEvent} from 'react';
 import {useSelector, useDispatch} from "react-redux";
 
 import {SomethingState, somethingSlice} from "./features/something";
@@ -16,34 +16,50 @@ const App: FC = () => {
     const count: number = useSelector<SomethingState, number>((state => state.count))
     const dispatch = useDispatch();
 
-    const [user, setUser] = useState("hogehoge")
+    type dataType = {
+        id: string,
+        title: string,
+        contents: string
+    }
+    type dataArray = dataType[]
+
+
+    const [data, setData] = useState<dataArray>([])
     const [loading, setLoading] = useState(true)
 
-    const fetchDate = async () => {
-        const response = await axios.get("/api/v1/something/", {
-            // withCredentials: true,
-        })
-        // const data = await response.json()
-        // const [item] = data.results
+    const [renshu, setRenshu] = useState("")
 
-        setUser("hogehogehoge")
-        setLoading(false)
+
+    const fetchData = async () => {
+        const response = await axios.get("/api/v1/something/")
+
+        // setUser("hogehogehoge")
+        // setLoading(false)
         console.log(response)
         console.log(response.data)
         console.log(response.data[0].contents)
     }
 
     useEffect(() => {
-        fetchDate()
+        fetchData()
     }, [])
 
+
+    const getButton = async () => {
+        const res = await axios.get("/api/v1/something/")
+
+        console.log([...res.data])
+        setData([...res.data])
+        setLoading(false)
+
+        console.log(data)
+    }
 
     const postData = {
         title: "test",
         contents: "testtesttest",
     }
 
-    //うまくいった！
     //TODO: async/await方式に書き換える
     const postButton = () => {
 
@@ -58,10 +74,30 @@ const App: FC = () => {
             .catch(error => console.log(error));
 
         console.log(response)
-
-        // console.log(axiosPost)
     }
 
+    const handleChange = (e: SyntheticEvent<HTMLElement>) => {
+        setRenshu((e.target as HTMLInputElement).value)
+    }
+
+    const handleSubmit = (e: SyntheticEvent<HTMLElement>) => {
+        const config = {
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            }
+        }
+
+        const buttonData = {
+            title: "button-data",
+            contents: renshu
+        }
+
+        const response = axios.post("/api/v1/something/", buttonData, config)
+            .then(response => console.log(response.data))
+            .catch(error => console.log(error));
+
+        console.log(response)
+    }
 
     return (
         <div className="App">
@@ -72,11 +108,23 @@ const App: FC = () => {
                 <button onClick={() => dispatch(somethingSlice.actions.added(1))}>たす</button>
             </div>
 
+            <h2>GETの練習</h2>
+            <button onClick={() => getButton()}>GET</button>
             <div>
-                {loading ? <h1>Loading...</h1> : <h1>{user}</h1>}
+                {loading ? <p>GETボタン押したら内容が変わるよ</p> : <p>{data[0].title}</p>}
             </div>
 
+
+            <h2>POSTの練習</h2>
             <button onClick={() => postButton()}>post</button>
+
+            <div>
+                <form onSubmit={handleSubmit}>
+                    <p>入力中: {renshu}</p>
+                    <input type="text" value={renshu} name="name" onChange={handleChange}/>
+                    <input type="submit" value="Submit" />
+                </form>
+            </div>
 
         </div>
     )
