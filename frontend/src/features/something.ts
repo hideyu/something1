@@ -1,18 +1,42 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-export type SomethingState = {
-  count: number;
-};
+//**********************
+// stateの型定義
+//**********************
+export type dataType = {
+    id: string,
+    title: string,
+    contents: string
+}
+export type dataState = {
+    dataArray: dataType[],
+    input: string
+}
 
-const initialState: SomethingState = { count: 0 };
+//**********************
+// createSliceの初期値
+//**********************
+const initialState: dataState = {
+    dataArray: [{id:"", title:"", contents:""}],
+    input: ""
+}
 
+//**********************
+// createSliceの本体
+//**********************
 export const somethingSlice = createSlice({
-  name: 'something',
-  initialState,
-  reducers: {
-    added: (state: SomethingState, action: PayloadAction<number>) => ({
-      ...state,
-      count: state.count + action.payload,
-    }),
-  },
+    name: 'something',
+    initialState,
+    reducers: {
+        get: (state: dataState, action: PayloadAction<dataType[]>) => ({
+            dataArray: action.payload,
+            input: ""
+        }),
+
+        inputValue: (state: dataState, action: PayloadAction<string>) => ({
+            ...state,
+            input: action.payload
+        })
+    },
 });
+
