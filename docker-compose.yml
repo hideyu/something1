@@ -16,6 +16,7 @@ services:
     ports:
       # ホスト側のポート：コンテナ側のポート
       - 3000:3000
+
   django:
     # コンテナ名
     container_name: django
@@ -36,8 +37,7 @@ services:
       # 環境変数に設定するファイル
       - ./backend/django/.env
     depends_on:
-      # 接続するサービス
-      # （サービス間のネットワークについては自動で作成されるので定義は不要）
+      # 接続するサービス（サービス間のネットワークについては自動で作成されるので定義は不要）
       - postgres
 
   postgres:
