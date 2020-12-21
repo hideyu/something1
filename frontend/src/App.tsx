@@ -1,4 +1,4 @@
-import React, {FC, useState, useEffect, SyntheticEvent} from 'react';
+import React, {FC, useEffect, SyntheticEvent} from 'react';
 import {useSelector, useDispatch} from "react-redux";
 
 import {somethingSlice, dataType, dataState} from "./features/something";
@@ -96,7 +96,7 @@ const App: FC = () => {
             {/*<p>{dataArray[0].title}</p>*/}
             <div>
                 {dataArray.map((data) => (
-                    <p>{data.title}</p>
+                    <p key={data.id}>{data.title}</p>
                 ))}
             </div>
 

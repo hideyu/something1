@@ -65,6 +65,7 @@ MIDDLEWARE = [
 # django-cors-headersの設定1
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'http://0.0.0.0:3000'
 ]
 # django-cors-headersの設定2
 # CORS_ALLOW_CREDENTIALS = True
