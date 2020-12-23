@@ -5,6 +5,11 @@ import {somethingSlice, dataType, dataState} from "./features/something";
 
 import axios from "axios";
 
+import Button from "@material-ui/core/Button";
+import {TextField} from "@material-ui/core";
+import Card from '@material-ui/core/Card';
+import CardContent from "@material-ui/core/CardContent";
+
 import './App.css';
 
 
@@ -47,9 +52,9 @@ const App: FC = () => {
 
         // setData([...res.data])
         // setLoading(false)
-        console.log("dataArray is ...")
-        console.log(dataArray)
-        console.log(dataArray[0])
+        // console.log("dataArray is ...")
+        // console.log(dataArray)
+        // console.log(dataArray[0])
     }
 
 
@@ -88,25 +93,31 @@ const App: FC = () => {
     //******************************
     return (
         <div className="App">
-            <p>Do something.</p>
+            <h2>Do something.</h2>
 
-            <h2>GETの練習</h2>
-            <button onClick={() => getButton()}>GET</button>
+            <Card>
+                <CardContent>
+                    <h2>GETの練習</h2>
+                    <Button variant="contained" color="primary" onClick={() => getButton()}>GET</Button>
 
-            {/*<p>{dataArray[0].title}</p>*/}
-            <div>
-                {dataArray.map((data) => (
-                    <p key={data.id}>{data.title}</p>
-                ))}
-            </div>
+                    {/*<p>{dataArray[0].title}</p>*/}
+                    <div>
+                        {dataArray.map((data) => (
+                            <p key={data.id}>{data.contents}</p>
+                        ))}
+                    </div>
+                </CardContent>
+            </Card>
 
             <h2>POSTの練習</h2>
             {/*<button onClick={() => postButton()}>post</button>*/}
             <div>
+                <h3>入力中: {inputData}</h3>
                 <form onSubmit={handleSubmit}>
-                    <p>入力中: {inputData}</p>
-                    <input type="text" value={inputData} name="name" onChange={handleChange}/>
-                    <input type="submit" value="Submit" />
+                    <TextField id="outlined-basic" variant="outlined" label="Do something" size="small" type="text" value={inputData} name="name"
+                               onChange={handleChange}/>
+                    {/*<input type="text" value={inputData} name="name" onChange={handleChange}/>*/}
+                    <Button variant="contained" color="primary" type="submit" value="Submit" style={{marginLeft: "10px"}}>POST</Button>
                 </form>
             </div>
 
