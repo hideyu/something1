@@ -2,4 +2,4 @@ from .models import Something
 
 
 def foo():
-    print("Hello" "World")
+    print("Hello" "World hogehoge")
