@@ -3,6 +3,7 @@ import uuid
 from django.db import models
 from django.utils import timezone
 
+
 class Something(models.Model):
     """Somethingモデル"""
 
